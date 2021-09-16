@@ -3,6 +3,8 @@ import {makeAutoObservable} from "mobx";
 export type UserFormType = {
     username: string;
     password: string;
+    email: string;
+    mobile: string;
 }
 
 export default class UserStore {
@@ -12,9 +14,7 @@ export default class UserStore {
     }
 
     async postUser(userForm: UserFormType): Promise<void> {
-        const param = new FormData()
-        param.append('username', userForm.username)
-        param.append('password', userForm.password)
+        const param = new URLSearchParams(userForm)
         param.append('registerSource', 'username')
         const res = await fetch('/api/users', {
             method: 'POST',
