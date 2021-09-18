@@ -1,28 +1,40 @@
 import {makeAutoObservable} from "mobx";
 
-export type UserFormType = {
+export type User = {
     username: string;
-    password: string;
-    email: string;
+    nickname: string;
     mobile: string;
 }
-
+export type Pagination = {
+    total: number;
+}
 export default class UserStore {
+
+    users: User[] = []
+    pagination = {
+        total: 0
+    }
 
     constructor() {
         makeAutoObservable(this);
     }
 
-    async postUser(userForm: UserFormType): Promise<void> {
-        const param = new URLSearchParams(userForm)
-        param.append('registerSource', 'username')
-        const res = await fetch('/api/users', {
-            method: 'POST',
-            body: param
-        })
-        const result = await res.json()
-        console.log(result)
-
+    setUsers(users: User[]) {
+        this.users = users
     }
 
+    setPagination(pagination: Pagination) {
+        this.pagination = pagination
+    }
+
+    async fetchUsers(type: string, token: string) {
+        const response = await fetch('/api/users', {
+            headers: {
+                Authorization: `${type} ${token}`
+            }
+        })
+        const {data: users, pagination} = await response.json()
+        this.setUsers(users)
+        this.setPagination(pagination)
+    }
 }

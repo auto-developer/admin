@@ -9,7 +9,12 @@ export default defineConfig({
             '/api': {
                 target: "http://localhost:8080",
                 changeOrigin: true,
-            }
+            },
+            '/token': {
+                target: "http://localhost:8080",
+                changeOrigin: true,
+            },
+
         }
     }
 })

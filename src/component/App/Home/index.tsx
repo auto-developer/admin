@@ -1,14 +1,20 @@
-import React from 'react'
+import React, {useContext, useEffect} from 'react'
+import {CLIENT_ID, OAUTH_SERVER, REDIRECT_URI} from "../../../common/config";
+import {observer} from "mobx-react";
+import StoreContext from "../../../context";
 
 function Dashboard() {
-    const {
-        VITE_CLIENT_ID,
-        VITE_OAUTH_SERVER,
-        VITE_REDIRECT_URI
-    } = import.meta.env
+    const {userStore, tokenStore} = useContext(StoreContext)
 
-    const oauthUri = `${VITE_OAUTH_SERVER}/authorize?client_id=${VITE_CLIENT_ID}&redirect_uri=${VITE_REDIRECT_URI}&response_type=code&scope=username&state=xyz`
-    const registerUri = `${VITE_OAUTH_SERVER}/sign-up`
+    useEffect(() => {
+        userStore.fetchUsers(tokenStore.tokenType, tokenStore.accessToken)
+            .then(() => {
+                console.log('fetch users')
+            })
+    }, [])
+
+    const oauthUri = `${OAUTH_SERVER}/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=username&state=xyz`
+    const registerUri = `${OAUTH_SERVER}/sign-up`
     return <div>
         <h1>Home</h1>
         <ul>
@@ -16,7 +22,12 @@ function Dashboard() {
             <li><a href={registerUri}>sign up</a></li>
         </ul>
 
+        {userStore.users.map(user => <p>
+            <span>{user.username}</span>
+            <span>{user.nickname}</span>
+            <span>{user.mobile}</span>
+        </p>)}
     </div>
 }
 
-export default Dashboard
+export default observer(Dashboard)

@@ -1,7 +1,9 @@
+import TokenStore from "./TokenStore";
 import UserStore from "./UserStore";
 
 const store = {
-    userStore: new UserStore()
+    tokenStore: new TokenStore(),
+    userStore: new UserStore(),
 }
 
 export default store;
