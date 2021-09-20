@@ -1,33 +1,38 @@
 import React, {useContext, useEffect} from 'react'
-import {CLIENT_ID, OAUTH_SERVER, REDIRECT_URI} from "../../../common/config";
-import {observer} from "mobx-react";
+import {Link, Route, Switch, useHistory} from "react-router-dom";
+import UserList from "./UserList";
+import Dashboard from "./Dashboard";
 import StoreContext from "../../../context";
 
-function Dashboard() {
-    const {userStore, tokenStore} = useContext(StoreContext)
-
+function Home() {
+    const {tokenStore, adminStore} = useContext(StoreContext)
+    const history = useHistory()
     useEffect(() => {
-        userStore.fetchUsers(tokenStore.tokenType, tokenStore.accessToken)
-            .then(() => {
-                console.log('fetch users')
-            })
-    }, [])
+        if(!adminStore.username) {
+            history.push('/login')
+        }
+    })
 
-    const oauthUri = `${OAUTH_SERVER}/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=username&state=xyz`
-    const registerUri = `${OAUTH_SERVER}/sign-up`
     return <div>
-        <h1>Home</h1>
-        <ul>
-            <li><a href={oauthUri}>sign in</a></li>
-            <li><a href={registerUri}>sign up</a></li>
-        </ul>
+        <header>
+            <h1>Home</h1>
+        </header>
+        <aside>
+            <nav>
+                <ul>
+                    <li><Link to={'/'}>Dashboard</Link></li>
+                    <li><Link to={'/users'}>User List</Link></li>
+                </ul>
+            </nav>
+        </aside>
+        <main>
+            <Switch>
+                <Route path={'/'} strict={true} exact={true}><Dashboard/></Route>
+                <Route path={'/users'}><UserList/></Route>
+            </Switch>
+        </main>
 
-        {userStore.users.map(user => <p>
-            <span>{user.username}</span>
-            <span>{user.nickname}</span>
-            <span>{user.mobile}</span>
-        </p>)}
     </div>
 }
 
-export default observer(Dashboard)
+export default Home

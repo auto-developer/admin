@@ -1,25 +1,19 @@
-import React, {useContext, useEffect} from 'react'
+import React from 'react'
 import {Route, Switch} from "react-router";
+import {BrowserRouter as Router} from "react-router-dom";
+import Login from "./Login";
 import Home from "./Home";
-import StoreContext from "../../context";
+import Auth from "./Auth";
 
 function App() {
-    const {tokenStore} = useContext(StoreContext)
 
-    useEffect(() => {
-        const params = new URLSearchParams(location.search)
-        const code = params.get('code')
-        console.log(code);
-        if (code) {
-            tokenStore.postToken(code)
-                .then(() => {
-                    console.log('fetch token')
-                })
-        }
-    }, [])
-    return <Switch>
-        <Route path={'/'} strict={true} exact={true}><Home/></Route>
-    </Switch>
+    return <Router>
+        <Switch>
+            <Route path={'/auth'} strict={true} exact={true}><Auth/></Route>
+            <Route path={'/login'} strict={true} exact={true}><Login/></Route>
+            <Route><Home/></Route>
+        </Switch>
+    </Router>
 }
 
 export default App

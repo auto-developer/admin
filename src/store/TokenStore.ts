@@ -1,6 +1,14 @@
 import {makeAutoObservable} from "mobx";
 import {CLIENT_ID, CLIENT_SECRET, REDIRECT_URI} from "../common/config";
 
+export type TokenResponse = {
+    access_token: string;
+    refresh_token: string;
+    scope: string;
+    expires_in: number;
+    token_type: string;
+}
+
 export default class TokenStore {
 
     accessToken: string;
@@ -43,7 +51,7 @@ export default class TokenStore {
         this.tokenType = tokenType
     }
 
-    async postToken(code: string) {
+    async postToken(code: string): Promise<TokenResponse> {
         const params = new URLSearchParams()
         params.append('client_id', CLIENT_ID)
         params.append('client_secret', CLIENT_SECRET)
@@ -54,11 +62,14 @@ export default class TokenStore {
             method: 'POST',
             body: params
         })
-        const token = await response.json()
+        const token: TokenResponse = await response.json()
         this.setAccessToken(token['access_token'])
         this.setRefreshToken(token['refresh_token'])
         this.setScope(token['scope'])
         this.setExpiresIn(token['expires_in'])
+        console.log('--------')
+        console.log(typeof  token['expires_in'])
         this.setTokenType(token['token_type'])
+        return token
     }
 }
