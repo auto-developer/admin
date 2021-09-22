@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from 'react'
-import {Link, Route, Switch, useHistory} from "react-router-dom";
+import {Link, Redirect, Route, Switch, useHistory} from "react-router-dom";
 import UserList from "./UserList";
 import Dashboard from "./Dashboard";
 import StoreContext from "../../../context";
@@ -20,15 +20,15 @@ function Home() {
         <aside>
             <nav>
                 <ul>
-                    <li><Link to={'/'}>Dashboard</Link></li>
+                    <li><Link to={`/${userStore.username}`}>Dashboard</Link></li>
                     <li><Link to={'/users'}>User List</Link></li>
                 </ul>
             </nav>
         </aside>
         <main>
             <Switch>
-                <Route path={'/'} strict={true} exact={true}><Dashboard/></Route>
                 <Route path={'/users'}><UserList/></Route>
+                <Route path={'/:userId'} strict={true} exact={true}><Dashboard/></Route>
             </Switch>
         </main>
 

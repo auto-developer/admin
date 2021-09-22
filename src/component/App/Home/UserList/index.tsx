@@ -11,15 +11,27 @@ function UserList() {
                 console.log('fetch users')
             })
     }, [])
-    return <div>
-
-        <h1>Users</h1>
-        {usersStore.users.map(user => <p>
-            <span>{user.username}</span>
-            <span>{user.nickname}</span>
-            <span>{user.mobile}</span>
-        </p>)}
-    </div>
+    return <section>
+        <h4>Users</h4>
+        <table>
+            <thead>
+            <tr>
+                <th>username</th>
+                <th>nickname</th>
+                <th>mobile</th>
+                <th>email</th>
+            </tr>
+            </thead>
+            <tbody>
+            {usersStore.users.map(user => <tr>
+                <td>{user.username}</td>
+                <td>{user.nickname}</td>
+                <td>{user.mobile}</td>
+                <td>{user.email}</td>
+            </tr>)}
+            </tbody>
+        </table>
+    </section>
 }
 
 export default observer(UserList)

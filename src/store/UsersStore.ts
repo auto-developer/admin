@@ -4,10 +4,13 @@ export type User = {
     username: string;
     nickname: string;
     mobile: string;
+    email: string;
 }
+
 export type Pagination = {
     total: number;
 }
+
 export default class UserStore {
 
     users: User[] = []
