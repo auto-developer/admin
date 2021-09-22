@@ -3,10 +3,10 @@ import {observer} from "mobx-react";
 import StoreContext from "../../../../context";
 
 function UserList() {
-    const {userStore, tokenStore} = useContext(StoreContext)
+    const {usersStore, tokenStore} = useContext(StoreContext)
 
     useEffect(() => {
-        userStore.fetchUsers(tokenStore.tokenType, tokenStore.accessToken)
+        usersStore.fetchUsers(tokenStore.tokenType, tokenStore.accessToken)
             .then(() => {
                 console.log('fetch users')
             })
@@ -14,7 +14,7 @@ function UserList() {
     return <div>
 
         <h1>Users</h1>
-        {userStore.users.map(user => <p>
+        {usersStore.users.map(user => <p>
             <span>{user.username}</span>
             <span>{user.nickname}</span>
             <span>{user.mobile}</span>

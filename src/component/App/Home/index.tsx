@@ -5,10 +5,10 @@ import Dashboard from "./Dashboard";
 import StoreContext from "../../../context";
 
 function Home() {
-    const {tokenStore, adminStore} = useContext(StoreContext)
+    const {tokenStore, userStore} = useContext(StoreContext)
     const history = useHistory()
     useEffect(() => {
-        if(!adminStore.username) {
+        if(!userStore.username) {
             history.push('/login')
         }
     })

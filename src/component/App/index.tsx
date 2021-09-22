@@ -3,13 +3,13 @@ import {Route, Switch} from "react-router";
 import {BrowserRouter as Router} from "react-router-dom";
 import Login from "./Login";
 import Home from "./Home";
-import Auth from "./Auth";
+import AuthCallBack from "./AuthCallback";
 
 function App() {
 
     return <Router>
         <Switch>
-            <Route path={'/auth'} strict={true} exact={true}><Auth/></Route>
+            <Route path={'/callback'} strict={true} exact={true}><AuthCallBack/></Route>
             <Route path={'/login'} strict={true} exact={true}><Login/></Route>
             <Route><Home/></Route>
         </Switch>
