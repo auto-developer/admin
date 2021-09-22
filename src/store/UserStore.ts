@@ -13,7 +13,7 @@ export default class UserStore {
     }
 
     async fetchUser (type:string,token:string) {
-        const response = await fetch(`/user`, {
+        const response = await fetch(`/api/user`, {
             headers: {
                 Authorization: `${type} ${token}`
             }
