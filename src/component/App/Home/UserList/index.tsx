@@ -14,7 +14,7 @@ function UserList() {
                 console.log('fetch users')
             })
             .catch(e => {
-                console.log(e)
+                console.log('exception', e)
                 history.push('/login')
             })
     }, [])

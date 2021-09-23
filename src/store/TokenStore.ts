@@ -63,14 +63,11 @@ export default class TokenStore {
             method: 'POST',
             body: params
         })
-        console.log('--------', response)
-
         const token: TokenResponse = await response.json()
         this.setAccessToken(token['access_token'])
         this.setRefreshToken(token['refresh_token'])
         this.setScope(token['scope'])
         this.setExpiresIn(token['expires_in'])
-        console.log(typeof token['expires_in'])
         this.setTokenType(token['token_type'])
         return token
     }
