@@ -2,6 +2,7 @@ import React, {useContext, useEffect} from "react";
 import {observer} from "mobx-react";
 import StoreContext from "../../../../context";
 import {useHistory} from "react-router";
+import styles from './style.module.scss'
 
 function UserList() {
     const {usersStore, tokenStore} = useContext(StoreContext)
@@ -17,8 +18,7 @@ function UserList() {
                 history.push('/login')
             })
     }, [])
-    return <section>
-        <h4>Users</h4>
+    return <section className={styles.users}>
         <table>
             <thead>
             <tr>
@@ -29,7 +29,7 @@ function UserList() {
             </tr>
             </thead>
             <tbody>
-            {usersStore.users.map(user => <tr>
+            {usersStore.users.map(user => <tr key={user._id}>
                 <td>{user.username}</td>
                 <td>{user.nickname}</td>
                 <td>{user.mobile}</td>

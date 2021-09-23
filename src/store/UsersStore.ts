@@ -1,6 +1,7 @@
 import {makeAutoObservable} from "mobx";
 
 export type User = {
+    _id:string;
     username: string;
     nickname: string;
     mobile: string;

@@ -1,0 +1,19 @@
+.users {
+  table {
+    width: 100%;
+    border: 1px solid #24292f;
+
+    thead {
+      background-color: #24292f;
+      color: #ffffff;
+      line-height: 36px;
+    }
+
+    tbody {
+      img {
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
+}

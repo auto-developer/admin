@@ -2,7 +2,7 @@ import React, {useContext, useEffect} from "react";
 import {observer} from "mobx-react";
 import StoreContext from "../../../../context";
 import {useHistory} from "react-router";
-import styles from './styles.module.scss'
+import styles from './style.module.scss'
 import {Link} from "react-router-dom";
 
 function ClientList() {
@@ -19,9 +19,7 @@ function ClientList() {
                 history.push('/login')
             })
     }, [])
-    return <div className={styles.clients}>
-
-        <h1>Clients</h1>
+    return <section className={styles.clients}>
         <table>
             <thead>
             <tr>
@@ -42,7 +40,7 @@ function ClientList() {
             </tr>)}
             </tbody>
         </table>
-    </div>
+    </section>
 }
 
 export default observer(ClientList)
