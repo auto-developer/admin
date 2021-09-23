@@ -9,9 +9,6 @@ function AuthCallBack() {
     useEffect(() => {
         const params = new URLSearchParams(location.search)
         const code = params.get('code')
-        if (!code) {
-            return history.replace('/login')
-        }
         tokenStore.postToken(code)
             .then((token) => {
                 return userStore.fetchUser(tokenStore.tokenType, token.access_token)
@@ -19,6 +16,9 @@ function AuthCallBack() {
             .then(user => {
                 console.log(user)
                 return history.replace(`/${userStore.username}`)
+            })
+            .catch(e => {
+                history.replace('/login')
             })
     }, [])
 

@@ -1,14 +1,20 @@
 import React, {useContext, useEffect} from "react";
 import {observer} from "mobx-react";
 import StoreContext from "../../../../context";
+import {useHistory} from "react-router";
 
 function UserList() {
     const {usersStore, tokenStore} = useContext(StoreContext)
+    const history = useHistory()
 
     useEffect(() => {
         usersStore.fetchUsers(tokenStore.tokenType, tokenStore.accessToken)
             .then(() => {
                 console.log('fetch users')
+            })
+            .catch(e => {
+                console.log(e)
+                history.push('/login')
             })
     }, [])
     return <section>
