@@ -19,12 +19,28 @@ function ClientDetail() {
                 history.push('/login')
             })
     }, [])
-    return <div className={styles.clients}>
-        <h1>Client Detail</h1>
+    return <div className={styles.client}>
+        <h2>Client Detail</h2>
+        <form action="">
 
-        <img src={clientStore.logo} alt=""/>
-        <p>{clientStore.name}</p>
-        <p>{clientStore.description}</p>
+            <label htmlFor="logo">Logo</label>
+            <img id="logo" src={clientStore.logo} alt=""/>
+
+            <label htmlFor="name">Name</label>
+            <input id="name" disabled={true} value={clientStore.name}/>
+
+
+            <label htmlFor="description">description</label>
+            <input id="description" disabled={true} value={clientStore.description}/>
+
+
+            <label htmlFor="grants">Grants</label>
+            <input id="grants" disabled={true} value={clientStore.grants}/>
+
+            <label htmlFor="redirectUris">Redirect Uris</label>
+            <input id="redirectUris" disabled={true} value={clientStore.redirectUris}/>
+
+        </form>
     </div>
 }
 

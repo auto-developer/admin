@@ -6,6 +6,7 @@ import StoreContext from "../../../context";
 import ClientList from "./ClientList";
 import styles from './styles.module.scss'
 import ClientDetail from "./ClientDetail";
+import NavMenu from "./NavMenu";
 
 function Home() {
     const {tokenStore, userStore} = useContext(StoreContext)
@@ -22,15 +23,7 @@ function Home() {
             <h1>Home</h1>
         </header>
         <section>
-            <aside>
-                <nav>
-                    <ul>
-                        <li><NavLink to={`/`}>Dashboard</NavLink></li>
-                        <li><NavLink to={`/users`}>User List</NavLink></li>
-                        <li><NavLink to={`/clients`}>Client List</NavLink></li>
-                    </ul>
-                </nav>
-            </aside>
+            <aside><NavMenu/></aside>
             <main>
                 <Switch>
                     <Route path={'/'} strict={true} exact={true}><Dashboard/></Route>
