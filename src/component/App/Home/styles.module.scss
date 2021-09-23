@@ -1,0 +1,28 @@
+.home {
+
+  header {
+    background-color: #24292f;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    box-sizing: border-box;
+    color: #ffffff;
+  }
+
+  section {
+    display: flex;
+    flex-direction: row;
+
+    aside {
+      width: 200px;
+      min-width: 180px;
+      max-width: 300px;
+    }
+
+    main {
+      flex: 1;
+      padding: 15px;
+    }
+  }
+}

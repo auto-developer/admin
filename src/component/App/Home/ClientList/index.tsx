@@ -2,6 +2,7 @@ import React, {useContext, useEffect} from "react";
 import {observer} from "mobx-react";
 import StoreContext from "../../../../context";
 import {useHistory} from "react-router";
+import styles from './styles.module.scss'
 
 function ClientList() {
     const {clientStore, tokenStore} = useContext(StoreContext)
@@ -17,7 +18,7 @@ function ClientList() {
                 history.push('/login')
             })
     }, [])
-    return <div>
+    return <div className={styles.clients}>
 
         <h1>Clients</h1>
         <table>
