@@ -2,6 +2,7 @@ import {makeAutoObservable} from "mobx";
 import {Pagination} from "./UsersStore";
 
 export type Client = {
+    _id: string;
     clientId: string;
     logo: string;
     description: string;
@@ -24,6 +25,7 @@ export default class ClientStore {
     setClients(clients: Client[]) {
         this.clients = clients
     }
+
     setPagination(pagination: Pagination) {
         this.pagination = pagination
     }
