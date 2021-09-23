@@ -1,43 +1,56 @@
 import {makeAutoObservable} from "mobx";
-import {Pagination} from "./UsersStore";
+import {Client} from "./ClientsStore";
 
-export type Client = {
-    _id: string;
-    clientId: string;
-    logo: string;
-    description: string;
-    name: string;
-    grants: string[];
-    redirectUris: string[];
-}
 
 export default class ClientStore {
 
-    clients: Client[] = []
-    pagination = {
-        total: 0
-    }
+    id: string = '';
+    logo: string = '';
+    description: string = '';
+    name: string = '';
+    grants: string[] = [];
+    redirectUris: string[] = [];
 
     constructor() {
         makeAutoObservable(this);
     }
 
-    setClients(clients: Client[]) {
-        this.clients = clients
+    setId = (id: string) => {
+        this.id = id
     }
 
-    setPagination(pagination: Pagination) {
-        this.pagination = pagination
+    setLogo = (logo: string) => {
+        this.logo = logo
     }
 
-    async fetchClients(type: string, token: string) {
-        const response = await fetch('/api/clients', {
+    setDescription = (description: string) => {
+        this.description = description
+    }
+
+    setName = (name: string) => {
+        this.name = name
+    }
+
+    setGrants = (grants: string[]) => {
+        this.grants = grants
+    }
+
+    setRedirectUris = (redirectUris: string[]) => {
+        this.redirectUris = redirectUris
+    }
+
+    async fetchClient(type: string, token: string, clientId: string) {
+        const response = await fetch(`/api/clients/${clientId}`, {
             headers: {
                 Authorization: `${type} ${token}`
             }
         })
-        const {data: clients, pagination} = await response.json()
-        this.setClients(clients)
-        this.setPagination(pagination)
+        const client: Client = await response.json()
+        this.setId(client._id)
+        this.setDescription(client.description)
+        this.setGrants(client.grants)
+        this.setRedirectUris(client.redirectUris)
+        this.setName(client.name)
+        this.setLogo(client.logo)
     }
 }

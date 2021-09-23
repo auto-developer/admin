@@ -3,13 +3,14 @@ import {observer} from "mobx-react";
 import StoreContext from "../../../../context";
 import {useHistory} from "react-router";
 import styles from './styles.module.scss'
+import {Link} from "react-router-dom";
 
 function ClientList() {
-    const {clientStore, tokenStore} = useContext(StoreContext)
+    const {clientsStore, tokenStore} = useContext(StoreContext)
     const history = useHistory()
 
     useEffect(() => {
-        clientStore.fetchClients(tokenStore.tokenType, tokenStore.accessToken)
+        clientsStore.fetchClients(tokenStore.tokenType, tokenStore.accessToken)
             .then(() => {
                 console.log('fetch users')
             })
@@ -28,14 +29,16 @@ function ClientList() {
                 <th>Client Id</th>
                 <th>Name</th>
                 <th>Description</th>
+                <th>Detail</th>
             </tr>
             </thead>
             <tbody>
-            {clientStore.clients.map(client => <tr key={client.clientId}>
+            {clientsStore.clients.map(client => <tr key={client._id}>
                 <td><img src={client.logo} alt={client.logo} /></td>
                 <td>{client._id}</td>
                 <td>{client.name}</td>
                 <td>{client.description}</td>
+                <td><Link to={`/clients/${client._id}`}>Detail</Link></td>
             </tr>)}
             </tbody>
         </table>
