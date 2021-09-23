@@ -1,9 +1,13 @@
 import {makeAutoObservable} from "mobx";
-import {Pagination} from "./UserStore";
+import {Pagination} from "./UsersStore";
 
 export type Client = {
     clientId: string;
     logo: string;
+    description: string;
+    name: string;
+    grants: string[];
+    redirectUris: string[];
 }
 
 export default class ClientStore {
