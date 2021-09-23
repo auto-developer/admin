@@ -51,7 +51,8 @@ export default class TokenStore {
         this.tokenType = tokenType
     }
 
-    async postToken(code: string): Promise<TokenResponse> {
+    async postToken(code: string | null): Promise<TokenResponse> {
+        if (!code) throw Error('code is required.')
         const params = new URLSearchParams()
         params.append('client_id', CLIENT_ID)
         params.append('client_secret', CLIENT_SECRET)
@@ -69,7 +70,7 @@ export default class TokenStore {
         this.setRefreshToken(token['refresh_token'])
         this.setScope(token['scope'])
         this.setExpiresIn(token['expires_in'])
-        console.log(typeof  token['expires_in'])
+        console.log(typeof token['expires_in'])
         this.setTokenType(token['token_type'])
         return token
     }
