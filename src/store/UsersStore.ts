@@ -37,8 +37,8 @@ export default class UserStore {
                 Authorization: `${type} ${token}`
             }
         })
-        const {data: users, pagination, error} = await response.json()
-        if (error) throw error
+        if (!response.ok) throw await response.json()
+        const {data: users, pagination} = await response.json()
         this.setUsers(users)
         this.setPagination(pagination)
     }

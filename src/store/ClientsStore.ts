@@ -35,8 +35,8 @@ export default class ClientStore {
                 Authorization: `${type} ${token}`
             }
         })
-        const {data: clients, pagination, error} = await response.json()
-        if (error) throw error
+        if (!response.ok) throw await response.json()
+        const {data: clients, pagination} = await response.json()
         this.setClients(clients)
         this.setPagination(pagination)
     }
