@@ -3,6 +3,7 @@ import {observer} from "mobx-react";
 import StoreContext from "../../../../context";
 import {useHistory, useParams} from "react-router";
 import styles from './styles.module.scss'
+import Input from "../../../common/Input";
 
 function ClientDetail() {
     const {clientStore} = useContext(StoreContext)
@@ -23,23 +24,15 @@ function ClientDetail() {
         <h2>Client Detail</h2>
         <form action="">
 
-            <label htmlFor="logo">Logo</label>
-            <img id="logo" src={clientStore.logo} alt=""/>
+            <label>
+                Logo
+                <img id="logo" src={clientStore.logo} alt=""/>
+            </label>
 
-            <label htmlFor="name">Name</label>
-            <input id="name" disabled={true} value={clientStore.name}/>
-
-
-            <label htmlFor="description">description</label>
-            <input id="description" disabled={true} value={clientStore.description}/>
-
-
-            <label htmlFor="grants">Grants</label>
-            <input id="grants" disabled={true} value={clientStore.grants}/>
-
-            <label htmlFor="redirectUris">Redirect Uris</label>
-            <input id="redirectUris" disabled={true} value={clientStore.redirectUris}/>
-
+            <Input label={'Name'} disabled={true} value={clientStore.name}/>
+            <Input label={'Description'} disabled={true} value={clientStore.description}/>
+            <Input label={'Grants'} disabled={true} value={clientStore.grants.toString()}/>
+            <Input label={'Redirect Uris'} disabled={true} value={clientStore.redirectUris.toString()}/>
         </form>
     </div>
 }

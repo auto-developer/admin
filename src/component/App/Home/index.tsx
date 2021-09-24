@@ -7,12 +7,14 @@ import ClientList from "./ClientList";
 import styles from './styles.module.scss'
 import ClientDetail from "./ClientDetail";
 import NavMenu from "./NavMenu";
+import UserAdd from "./UserAdd";
+import UserDetail from "./UserDetail";
 
 function Home() {
-    const {userStore} = useContext(StoreContext)
+    const {mineStore} = useContext(StoreContext)
     const history = useHistory()
     useEffect(() => {
-        userStore.fetchUser()
+        mineStore.fetchMine()
             .catch(e => {
                 history.push('/login')
             })
@@ -27,7 +29,9 @@ function Home() {
             <main>
                 <Switch>
                     <Route path={'/'} strict={true} exact={true}><Dashboard/></Route>
-                    <Route path={'/users'}><UserList/></Route>
+                    <Route path={'/users'} strict={true} exact={true}><UserList/></Route>
+                    <Route path={'/users/add'} strict={true} exact={true}><UserAdd/></Route>
+                    <Route path={'/users/:username'} strict={true} exact={true}><UserDetail/></Route>
                     <Route path={'/clients'} strict={true} exact={true}><ClientList/></Route>
                     <Route path={'/clients/:clientId'}><ClientDetail/></Route>
                 </Switch>

@@ -7,12 +7,19 @@ export type Client = {
     redirectUris: string[];
 }
 
+export enum Gender {
+    male = 'male',
+    female = 'female',
+}
+
 export type User = {
-    _id:string;
+    _id: string;
     username: string;
     nickname: string;
     mobile: string;
     email: string;
+    avatar: string;
+    gender: Gender;
 }
 
 export type Pagination = {
