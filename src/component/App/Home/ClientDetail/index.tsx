@@ -5,12 +5,12 @@ import {useHistory, useParams} from "react-router";
 import styles from './styles.module.scss'
 
 function ClientDetail() {
-    const {clientStore, tokenStore} = useContext(StoreContext)
+    const {clientStore} = useContext(StoreContext)
     const history = useHistory()
     const {clientId} = useParams<{ clientId: string }>();
 
     useEffect(() => {
-        clientStore.fetchClient(tokenStore.tokenType, tokenStore.accessToken, clientId)
+        clientStore.fetchClient(clientId)
             .then(() => {
                 console.log('fetch users')
             })

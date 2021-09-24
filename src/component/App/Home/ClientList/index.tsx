@@ -6,11 +6,11 @@ import styles from './style.module.scss'
 import {Link} from "react-router-dom";
 
 function ClientList() {
-    const {clientsStore, tokenStore} = useContext(StoreContext)
+    const {clientsStore} = useContext(StoreContext)
     const history = useHistory()
 
     useEffect(() => {
-        clientsStore.fetchClients(tokenStore.tokenType, tokenStore.accessToken)
+        clientsStore.fetchClients()
             .then(() => {
                 console.log('fetch users')
             })

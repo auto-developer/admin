@@ -1,15 +1,15 @@
-import TokenStore from "./TokenStore";
-import UsersStore from "./UsersStore";
-import UserStore from "./UserStore";
-import ClientStore from "./ClientStore";
-import ClientsStore from "./ClientsStore";
+import fetchStore from "./fetchStore";
+import usersStore from "./usersStore";
+import userStore from "./userStore";
+import clientStore from "./clientStore";
+import clientsStore from "./clientsStore";
 
 const store = {
-    tokenStore: new TokenStore(),
-    usersStore: new UsersStore(),
-    clientsStore: new ClientsStore(),
-    clientStore: new ClientStore(),
-    userStore: new UserStore(),
+    fetchStore,
+    usersStore,
+    clientsStore,
+    clientStore,
+    userStore,
 }
 
 export default store;

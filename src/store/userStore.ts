@@ -1,6 +1,7 @@
 import {makeAutoObservable} from "mobx";
+import fetchStore from './fetchStore'
 
-export default class UserStore {
+class UserStore {
 
     username = ''
 
@@ -8,19 +9,16 @@ export default class UserStore {
         makeAutoObservable(this);
     }
 
-    setUsername = (username:string) => {
+    setUsername = (username: string) => {
         this.username = username
     }
 
     async fetchUser (type:string,token:string) {
-        const response = await fetch(`/api/user`, {
-            headers: {
-                Authorization: `${type} ${token}`
-            }
-        })
-        const user = await response.json()
+        const user = await fetchStore.getResource('/api/user')
         this.setUsername(user.username)
         return user
     }
 
 }
+
+export default new UserStore()

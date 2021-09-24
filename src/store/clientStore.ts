@@ -1,8 +1,8 @@
 import {makeAutoObservable} from "mobx";
-import {Client} from "./ClientsStore";
+import fetchStore from "./fetchStore";
+import {Client} from "../types";
 
-
-export default class ClientStore {
+class ClientStore {
 
     id: string = '';
     logo: string = '';
@@ -39,13 +39,8 @@ export default class ClientStore {
         this.redirectUris = redirectUris
     }
 
-    async fetchClient(type: string, token: string, clientId: string) {
-        const response = await fetch(`/api/clients/${clientId}`, {
-            headers: {
-                Authorization: `${type} ${token}`
-            }
-        })
-        const client: Client = await response.json()
+    async fetchClient(clientId: string) {
+        const client: Client = await fetchStore.getResource(`/api/clients/${clientId}`)
         this.setId(client._id)
         this.setDescription(client.description)
         this.setGrants(client.grants)
@@ -54,3 +49,5 @@ export default class ClientStore {
         this.setLogo(client.logo)
     }
 }
+
+export default new ClientStore()

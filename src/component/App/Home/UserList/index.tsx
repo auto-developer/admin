@@ -5,11 +5,11 @@ import {useHistory} from "react-router";
 import styles from './style.module.scss'
 
 function UserList() {
-    const {usersStore, tokenStore} = useContext(StoreContext)
+    const {usersStore} = useContext(StoreContext)
     const history = useHistory()
 
     useEffect(() => {
-        usersStore.fetchUsers(tokenStore.tokenType, tokenStore.accessToken)
+        usersStore.fetchUsers()
             .then(() => {
                 console.log('fetch users')
             })
