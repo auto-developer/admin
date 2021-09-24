@@ -30,9 +30,9 @@ function UserDetail() {
                 <img id="logo" src={userStore.avatar} alt=""/>
             </label>
 
-            <Input label={'Name'} disabled={true} value={userStore.username}/>
-            <Input label={'Email'} disabled={true} value={userStore.email}/>
-            <Input label={'Mobile'} disabled={true} value={userStore.mobile}/>
+            <Input label={'Name'} disabled={true} value={userStore.username} onChange={userStore.setUsername}/>
+            <Input label={'Email'} disabled={true} value={userStore.email} onChange={userStore.setEmail}/>
+            <Input label={'Mobile'} disabled={true} value={userStore.mobile} onChange={userStore.setMobile}/>
             <Radio label={'Gender'} options={Object.keys(Gender)} value={userStore.gender}
                    onChange={userStore.setGender}/>
 

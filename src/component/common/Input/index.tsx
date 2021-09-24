@@ -6,12 +6,18 @@ export interface InputProps {
     value: string;
     label: string;
     disabled?: boolean;
+    onChange: (value: string) => void
 }
 
-function Input({label, value, disabled, type = 'text'}: InputProps): ReactElement<InputProps> {
+function Input({label, value, disabled, onChange, type = 'text'}: InputProps): ReactElement<InputProps> {
     return <label className={style.Input}>
         <span>{label}</span>
-        <input className={style.Input} disabled={disabled} type={type} value={value}/>
+        <input className={style.Input}
+               disabled={disabled}
+               type={type}
+               value={value}
+               onChange={event => onChange(event.target.value)}
+        />
     </label>
 }
 

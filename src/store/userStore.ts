@@ -10,7 +10,7 @@ class UserStore implements Omit<User, '_id'> {
     nickname: string = '';
     username = '';
     avatar = '';
-    gender = Gender.MALE;
+    gender = Gender.male;
 
     constructor() {
         makeAutoObservable(this);
