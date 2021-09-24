@@ -13,7 +13,7 @@ class UserStore {
         this.username = username
     }
 
-    async fetchUser (type:string,token:string) {
+    async fetchUser () {
         const user = await fetchStore.getResource('/api/user')
         this.setUsername(user.username)
         return user

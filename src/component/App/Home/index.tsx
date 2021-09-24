@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from 'react'
-import {NavLink, Redirect, Route, Switch, useHistory} from "react-router-dom";
+import {Route, Switch, useHistory} from "react-router-dom";
 import UserList from "./UserList";
 import Dashboard from "./Dashboard";
 import StoreContext from "../../../context";
@@ -9,10 +9,10 @@ import ClientDetail from "./ClientDetail";
 import NavMenu from "./NavMenu";
 
 function Home() {
-    const {tokenStore, userStore} = useContext(StoreContext)
+    const {userStore} = useContext(StoreContext)
     const history = useHistory()
     useEffect(() => {
-        userStore.fetchUser(tokenStore.tokenType, tokenStore.accessToken)
+        userStore.fetchUser()
             .catch(e => {
                 history.push('/login')
             })
