@@ -12,6 +12,15 @@ export enum Gender {
     female = 'female',
 }
 
+export enum RegisterSource {
+    username = 'username',
+    mobile = 'mobile',
+    email = 'email',
+    wechat = "wechat",
+    qq = "qq",
+    weibo = "weibo"
+}
+
 export type User = {
     _id: string;
     username: string;
@@ -20,6 +29,7 @@ export type User = {
     email: string;
     avatar: string;
     gender: Gender;
+    registerSource: RegisterSource;
 }
 
 export type Pagination = {
@@ -27,7 +37,7 @@ export type Pagination = {
 }
 
 
-type TokenResponse = {
+export type TokenResponse = {
     access_token: string;
     refresh_token: string;
     scope: string;
@@ -35,7 +45,7 @@ type TokenResponse = {
     token_type: string;
 }
 
-interface Token {
+export interface Token {
     accessToken: string;
     refreshToken: string;
     expiresIn: number;
