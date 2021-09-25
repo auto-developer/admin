@@ -1,7 +1,8 @@
 .Input {
   display: block;
   width: 500px;
-  
+  box-sizing: border-box;
+
   input {
     margin-top: 5px;
     margin-bottom: 15px;

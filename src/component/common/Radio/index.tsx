@@ -10,7 +10,7 @@ export interface RadioProps {
 }
 
 function Radio({label, value, disabled, options, onChange}: RadioProps): ReactElement<RadioProps> {
-    return <div className={style.Radio}>
+    return <label className={style.Radio}>
         <span>{label}</span>
         <section>
             {options.map(option => <label key={option}>
@@ -19,7 +19,7 @@ function Radio({label, value, disabled, options, onChange}: RadioProps): ReactEl
                 <span>{option}</span>
             </label>)}
         </section>
-    </div>
+    </label>
 }
 
 export default Radio

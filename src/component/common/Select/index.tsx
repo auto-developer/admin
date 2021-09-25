@@ -10,12 +10,12 @@ export interface SelectProps {
 }
 
 function Select({label, value, disabled, options, onChange}: SelectProps): ReactElement<SelectProps> {
-    return <div className={style.Select}>
-        <span>{label}</span>
+    return <label className={style.Select}>
+        <p>{label}</p>
         <select value={value} disabled={disabled} onChange={e => onChange(e.target.value)}>
             {options.map(option => <option key={option}>{option}</option>)}
         </select>
-    </div>
+    </label>
 }
 
 export default Select
