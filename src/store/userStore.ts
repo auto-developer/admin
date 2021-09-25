@@ -1,6 +1,6 @@
 import {makeAutoObservable} from "mobx";
 import fetchStore from './fetchStore'
-import {Gender, User} from "../types";
+import {Gender, RegisterSource, User} from "../types";
 
 class UserStore implements Omit<User, '_id'> {
 
@@ -11,6 +11,8 @@ class UserStore implements Omit<User, '_id'> {
     username = '';
     avatar = '';
     gender = Gender.male;
+    registerSource: RegisterSource = RegisterSource.username;
+
 
     constructor() {
         makeAutoObservable(this);
@@ -34,6 +36,9 @@ class UserStore implements Omit<User, '_id'> {
     setGender = (gender: Gender) => {
         this.gender = gender
     }
+    setRegisterSource = (registerSource: RegisterSource) => {
+        this.registerSource = registerSource
+    }
 
     reset = () => {
         this.username = ''
@@ -52,6 +57,7 @@ class UserStore implements Omit<User, '_id'> {
         this.setMobile(user.mobile)
         return user
     }
+
 
 
 }

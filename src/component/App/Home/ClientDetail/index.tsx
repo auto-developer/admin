@@ -29,10 +29,13 @@ function ClientDetail() {
                 <img id="logo" src={clientStore.logo} alt=""/>
             </label>
 
-            <Input label={'Name'} disabled={true} value={clientStore.name}/>
-            <Input label={'Description'} disabled={true} value={clientStore.description}/>
-            <Input label={'Grants'} disabled={true} value={clientStore.grants.toString()}/>
-            <Input label={'Redirect Uris'} disabled={true} value={clientStore.redirectUris.toString()}/>
+            <Input label={'Name'} disabled={true} value={clientStore.name} onChange={clientStore.setName}/>
+            <Input label={'Description'} disabled={true} value={clientStore.description}
+                   onChange={clientStore.setDescription}/>
+            <Input label={'Grants'} disabled={true} value={clientStore.grants.toString()}
+                   onChange={grants => clientStore.setGrants(grants.split(','))}/>
+            <Input label={'Redirect Uris'} disabled={true} value={clientStore.redirectUris.toString()}
+                   onChange={uri => clientStore.setRedirectUris(uri.split(','))}/>
         </form>
     </div>
 }
