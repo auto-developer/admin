@@ -38,7 +38,7 @@ function UserList() {
                 <td>{user.nickname}</td>
                 <td>{user.mobile}</td>
                 <td>{user.email}</td>
-                <td><Link to={`/users/${user.username}`}>detail</Link></td>
+                <td><Link to={`/users/${user.username}`}>Detail</Link></td>
             </tr>)}
             </tbody>
         </table>

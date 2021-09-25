@@ -13,8 +13,7 @@ class MineStore {
         this.username = username
     }
 
-    async fetchMine(code: string | null) {
-        await fetchStore.postToken(code)
+    async fetchMine() {
         const user = await fetchStore.getResource('/api/mine')
         this.setUsername(user.username)
         return user

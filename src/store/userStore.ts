@@ -58,8 +58,18 @@ class UserStore implements Omit<User, '_id'> {
         return user
     }
 
-
-
+    async postUser() {
+        const params = {
+            email: this.email,
+            mobile: this.mobile,
+            avatar: this.avatar,
+            gender: this.gender,
+            username: this.username,
+            registerSource: this.registerSource,
+        }
+        const user = await fetchStore.postResource('/api/users', params)
+        return user
+    }
 }
 
 export default new UserStore()

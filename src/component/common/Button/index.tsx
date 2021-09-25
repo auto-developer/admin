@@ -3,7 +3,7 @@ import style from './style.module.scss'
 
 export interface ButtonProps {
     label: string;
-    disabled: boolean;
+    disabled?: boolean;
 }
 
 function Button(props: ButtonProps) {

@@ -1,9 +1,26 @@
 import {CLIENT_ID, CLIENT_SECRET, REDIRECT_URI} from "../common/config";
 import {TokenParam} from "../types";
+import {makeAutoObservable} from "mobx";
 
-class Fetcher {
+class FetchStore {
 
-    fetching: boolean = false;
+    private fetchCount: number = 0;
+
+    constructor() {
+        window.fetch = new Proxy(fetch, {
+            apply: async (target: (input: RequestInfo, init?: RequestInit) => Promise<Response>, thisArg: any, argArray: any[]) => {
+                this.setFetchCount(this.fetchCount + 1)
+                const result = await target(argArray[0], argArray[1])
+                this.setFetchCount(this.fetchCount - 1)
+                return result
+            }
+        })
+        makeAutoObservable(this)
+    }
+
+    get fetching(): boolean {
+        return this.fetchCount > 0
+    };
 
     private static get accessToken() {
         return localStorage.getItem('access_token') || ''
@@ -45,13 +62,17 @@ class Fetcher {
         localStorage.setItem('token_type', String(expireIn))
     }
 
+    setFetchCount(count: number) {
+        this.fetchCount = count
+    }
+
     async postResource(url: string, params: any): Promise<any> {
         const p = new URLSearchParams(params)
         try {
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {
-                    Authorization: `${Fetcher.tokenType} ${Fetcher.accessToken}`
+                    Authorization: `${FetchStore.tokenType} ${FetchStore.accessToken}`
                 },
                 body: p
             })
@@ -66,7 +87,7 @@ class Fetcher {
                 const again = await fetch(url + p.toString(), {
                     method: 'GET',
                     headers: {
-                        Authorization: `${Fetcher.tokenType} ${Fetcher.accessToken}`
+                        Authorization: `${FetchStore.tokenType} ${FetchStore.accessToken}`
                     },
                 })
                 return again.json()
@@ -84,7 +105,7 @@ class Fetcher {
             const response = await fetch(url + p.toString(), {
                 method: 'GET',
                 headers: {
-                    Authorization: `${Fetcher.tokenType} ${Fetcher.accessToken}`
+                    Authorization: `${FetchStore.tokenType} ${FetchStore.accessToken}`
                 },
             })
             if (response.ok) {
@@ -98,7 +119,7 @@ class Fetcher {
                 const again = await fetch(url + p.toString(), {
                     method: 'GET',
                     headers: {
-                        Authorization: `${Fetcher.tokenType} ${Fetcher.accessToken}`
+                        Authorization: `${FetchStore.tokenType} ${FetchStore.accessToken}`
                     },
                 })
                 return again.json()
@@ -126,7 +147,7 @@ class Fetcher {
             'client_id': CLIENT_ID,
             'client_secret': CLIENT_SECRET,
             'grant_type': 'refresh_token',
-            'refresh_token': Fetcher.refreshToken,
+            'refresh_token': FetchStore.refreshToken,
         }
         await this.fetchToken(params)
     }
@@ -137,12 +158,13 @@ class Fetcher {
             body: new URLSearchParams(params)
         })
         const token = await response.json()
-        Fetcher.accessToken = (token['access_token'])
-        Fetcher.refreshToken = (token['refresh_token'])
-        Fetcher.scope = (token['scope'])
-        Fetcher.expiresIn = (token['expires_in'])
-        Fetcher.tokenType = (token['token_type'])
+        FetchStore.accessToken = (token['access_token'])
+        FetchStore.refreshToken = (token['refresh_token'])
+        FetchStore.scope = (token['scope'])
+        FetchStore.expiresIn = (token['expires_in'])
+        FetchStore.tokenType = (token['token_type'])
     }
+
 }
 
-export default new Fetcher()
+export default new FetchStore()

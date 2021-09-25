@@ -15,9 +15,15 @@ function Home() {
     const history = useHistory()
     useEffect(() => {
         if (!mineStore.username) {
-            history.push('/login')
+            mineStore.fetchMine()
+                .then(() => {
+
+                })
+                .catch(() => {
+                    history.push('/login')
+                })
         }
-    })
+    }, [])
 
     return <div className={styles.home}>
         <header>

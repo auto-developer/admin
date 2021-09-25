@@ -1,6 +1,7 @@
 import React, {useContext, useEffect} from "react";
 import StoreContext from "../../../context";
 import {useHistory} from "react-router";
+import fetchStore from "../../../store/fetchStore";
 
 function AuthCallBack() {
     const {mineStore} = useContext(StoreContext)
@@ -9,7 +10,10 @@ function AuthCallBack() {
     useEffect(() => {
         const params = new URLSearchParams(location.search)
         const code = params.get('code')
-        mineStore.fetchMine(code)
+        fetchStore.postToken(code)
+            .then(() => {
+                return mineStore.fetchMine()
+            })
             .then(user => {
                 console.log(user)
                 return history.replace(`/${mineStore.username}`)
