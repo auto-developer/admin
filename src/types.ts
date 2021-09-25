@@ -36,14 +36,21 @@ export type Pagination = {
     total: number;
 }
 
-
-export type TokenResponse = {
-    access_token: string;
-    refresh_token: string;
-    scope: string;
-    expires_in: number;
-    token_type: string;
+type TokenRequestParam = {
+    client_id: string;
+    client_secret: string;
+    grant_type: string;
+    redirect_uri: string;
+    code: string;
 }
+type TokenRefreshParam = {
+    client_id: string;
+    client_secret: string;
+    grant_type: string;
+    refresh_token: string;
+}
+
+export type TokenParam = TokenRequestParam | TokenRefreshParam
 
 export interface Token {
     accessToken: string;

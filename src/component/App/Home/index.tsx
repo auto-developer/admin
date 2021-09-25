@@ -14,10 +14,9 @@ function Home() {
     const {mineStore} = useContext(StoreContext)
     const history = useHistory()
     useEffect(() => {
-        mineStore.fetchMine()
-            .catch(e => {
-                history.push('/login')
-            })
+        if (!mineStore.username) {
+            history.push('/login')
+        }
     })
 
     return <div className={styles.home}>

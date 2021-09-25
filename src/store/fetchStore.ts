@@ -1,52 +1,47 @@
-import {makeAutoObservable} from "mobx";
 import {CLIENT_ID, CLIENT_SECRET, REDIRECT_URI} from "../common/config";
-import {Token, TokenResponse} from "../types";
+import {TokenParam} from "../types";
 
-class FetchStore implements Token {
+class Fetcher {
 
     fetching: boolean = false;
 
-    constructor() {
-        makeAutoObservable(this);
-    }
-
-    get accessToken() {
+    private static get accessToken() {
         return localStorage.getItem('access_token') || ''
     }
 
-    set accessToken(accessToken: string) {
+    private static set accessToken(accessToken: string) {
         localStorage.setItem('access_token', accessToken)
     }
 
-    get refreshToken() {
+    private static get refreshToken() {
         return localStorage.getItem('refresh_token') || ''
     }
 
-    set refreshToken(refreshToken: string) {
+    private static set refreshToken(refreshToken: string) {
         localStorage.setItem('refresh_token', refreshToken)
     }
 
-    get scope(): string {
+    private static get scope(): string {
         return localStorage.getItem('scope') || ''
     }
 
-    set scope(scope: string) {
+    private static set scope(scope: string) {
         localStorage.setItem('scope', scope)
     }
 
-    get tokenType(): string {
+    private static get tokenType(): string {
         return localStorage.getItem('token_type') || ''
     }
 
-    set tokenType(tokenType: string) {
+    private static set tokenType(tokenType: string) {
         localStorage.setItem('token_type', tokenType)
     }
 
-    get expiresIn(): number {
+    private static get expiresIn(): number {
         return Number(localStorage.getItem('token_type')) || NaN
     }
 
-    set expiresIn(expireIn: number) {
+    private static set expiresIn(expireIn: number) {
         localStorage.setItem('token_type', String(expireIn))
     }
 
@@ -56,7 +51,7 @@ class FetchStore implements Token {
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {
-                    Authorization: `${this.tokenType} ${this.accessToken}`
+                    Authorization: `${Fetcher.tokenType} ${Fetcher.accessToken}`
                 },
                 body: p
             })
@@ -71,7 +66,7 @@ class FetchStore implements Token {
                 const again = await fetch(url + p.toString(), {
                     method: 'GET',
                     headers: {
-                        Authorization: `${this.tokenType} ${this.accessToken}`
+                        Authorization: `${Fetcher.tokenType} ${Fetcher.accessToken}`
                     },
                 })
                 return again.json()
@@ -89,7 +84,7 @@ class FetchStore implements Token {
             const response = await fetch(url + p.toString(), {
                 method: 'GET',
                 headers: {
-                    Authorization: `${this.tokenType} ${this.accessToken}`
+                    Authorization: `${Fetcher.tokenType} ${Fetcher.accessToken}`
                 },
             })
             if (response.ok) {
@@ -103,19 +98,18 @@ class FetchStore implements Token {
                 const again = await fetch(url + p.toString(), {
                     method: 'GET',
                     headers: {
-                        Authorization: `${this.tokenType} ${this.accessToken}`
+                        Authorization: `${Fetcher.tokenType} ${Fetcher.accessToken}`
                     },
                 })
                 return again.json()
             }
-
         } catch (e) {
             console.log('exception')
             console.log(e)
         }
     }
 
-    async postToken(code: string | null): Promise<TokenResponse> {
+    async postToken(code: string | null): Promise<void> {
         if (!code) throw Error('code is required.')
         const params = {
             'client_id': CLIENT_ID,
@@ -124,38 +118,31 @@ class FetchStore implements Token {
             'grant_type': 'authorization_code',
             'code': code,
         }
-        const response = await fetch('/token', {
-            method: 'POST',
-            body: new URLSearchParams(params)
-        })
-        const token = await response.json()
-        this.accessToken = (token['access_token'])
-        this.refreshToken = (token['refresh_token'])
-        this.scope = (token['scope'])
-        this.expiresIn = (token['expires_in'])
-        this.tokenType = (token['token_type'])
-        return token
+        await this.fetchToken(params)
     }
 
-    async postRefreshToken() {
+    private async postRefreshToken() {
         const params = {
             'client_id': CLIENT_ID,
             'client_secret': CLIENT_SECRET,
             'grant_type': 'refresh_token',
-            'refresh_token': this.refreshToken,
+            'refresh_token': Fetcher.refreshToken,
         }
+        await this.fetchToken(params)
+    }
+
+    private async fetchToken(params: TokenParam) {
         const response = await fetch('/token', {
             method: 'POST',
             body: new URLSearchParams(params)
         })
         const token = await response.json()
-        this.accessToken = (token['access_token'])
-        this.refreshToken = (token['refresh_token'])
-        this.scope = (token['scope'])
-        this.expiresIn = (token['expires_in'])
-        this.tokenType = (token['token_type'])
-        return token
+        Fetcher.accessToken = (token['access_token'])
+        Fetcher.refreshToken = (token['refresh_token'])
+        Fetcher.scope = (token['scope'])
+        Fetcher.expiresIn = (token['expires_in'])
+        Fetcher.tokenType = (token['token_type'])
     }
 }
 
-export default new FetchStore()
+export default new Fetcher()
