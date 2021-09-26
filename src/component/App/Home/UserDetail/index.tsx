@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react";
+import React, {FormEvent, useContext, useEffect} from "react";
 import {observer} from "mobx-react";
 import StoreContext from "../../../../context";
 import {useHistory, useParams} from "react-router";
@@ -24,9 +24,14 @@ function UserDetail() {
                 history.push('/login')
             })
     }, [])
+
+    const handleSubmit = (event: FormEvent) => {
+        event.preventDefault();
+    }
+
     return <div className={styles.userAdd}>
         <h2>User Detail</h2>
-        <form action="">
+        <form action="" onSubmit={handleSubmit}>
             <label>Logo
                 <img id="logo" src={userStore.avatar} alt=""/>
             </label>
@@ -52,7 +57,7 @@ function UserDetail() {
                     options={Object.keys(RegisterSource)}
                     value={userStore.registerSource}
                     onChange={userStore.setRegisterSource}/>
-            <Button label={'submit'}/>
+            <Button disabled={true} label={'submit'}/>
         </form>
 
     </div>
