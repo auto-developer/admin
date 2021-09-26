@@ -68,65 +68,58 @@ class FetchStore {
 
     async postResource(url: string, params: any): Promise<any> {
         const p = new URLSearchParams(params)
+        const post = () => fetch(url, {
+            method: 'POST',
+            headers: {Authorization: `${FetchStore.tokenType} ${FetchStore.accessToken}`},
+            body: p
+        })
         try {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    Authorization: `${FetchStore.tokenType} ${FetchStore.accessToken}`
-                },
-                body: p
-            })
+            const response = await post()
             if (response.ok) {
                 return await response.json()
             } else {
                 const error = await response.json()
                 console.log(error)
-
                 const r = await this.postRefreshToken()
                 console.log(r)
-                const again = await fetch(url + p.toString(), {
-                    method: 'GET',
-                    headers: {
-                        Authorization: `${FetchStore.tokenType} ${FetchStore.accessToken}`
-                    },
-                })
+                const again = await post()
                 return again.json()
             }
-
         } catch (e) {
             console.log('exception')
             console.log(e)
+            const r = await this.postRefreshToken()
+            console.log(r)
+            const again = await post()
+            return again.json()
         }
     }
 
     async getResource(url: string, params = {}): Promise<any> {
         const p = new URLSearchParams(params)
+        const get = () => fetch(url + p.toString(), {
+            method: 'GET',
+            headers: {Authorization: `${FetchStore.tokenType} ${FetchStore.accessToken}`},
+        })
         try {
-            const response = await fetch(url + p.toString(), {
-                method: 'GET',
-                headers: {
-                    Authorization: `${FetchStore.tokenType} ${FetchStore.accessToken}`
-                },
-            })
+            const response = await get()
             if (response.ok) {
                 return response.json()
             } else {
                 const error = await response.json()
                 console.log(error)
-
                 const r = await this.postRefreshToken()
                 console.log(r)
-                const again = await fetch(url + p.toString(), {
-                    method: 'GET',
-                    headers: {
-                        Authorization: `${FetchStore.tokenType} ${FetchStore.accessToken}`
-                    },
-                })
+                const again = await get()
                 return again.json()
             }
         } catch (e) {
             console.log('exception')
             console.log(e)
+            const r = await this.postRefreshToken()
+            console.log(r)
+            const again = await get()
+            return again.json()
         }
     }
 
