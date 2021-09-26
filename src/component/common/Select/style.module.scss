@@ -1,8 +1,10 @@
 .Select {
   display: block;
-  width: 500px;
+  width: 100%;
 
   select {
+    margin-top: 5px;
+    margin-bottom: 15px;
     width: 100%;
     border-radius: 5px;
     line-height: 20px;

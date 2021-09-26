@@ -1,8 +1,29 @@
 .Radio {
   display: block;
 
+  section {
+    margin-top: 5px;
+    margin-bottom: 15px;
+    height: 32px;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    align-items: center;
+    padding: 5px 12px;
+    box-sizing: border-box;
 
-  input {
+    label {
 
+      input {
+        width: 18px;
+        height: 18px;
+        vertical-align: middle;
+      }
+
+      span {
+        vertical-align: middle;
+        padding: 5px;
+        display: inline-block;
+      }
+    }
   }
 }
