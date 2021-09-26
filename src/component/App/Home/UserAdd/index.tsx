@@ -28,10 +28,18 @@ function UserAdd() {
             <label>Logo
                 <img id="logo" src={userStore.avatar} alt=""/>
             </label>
-            <Input label={'Name'} value={userStore.username} onChange={userStore.setUsername}/>
-            <Input label={'Email'} value={userStore.email} onChange={userStore.setEmail}/>
-            <Input label={'Mobile'} value={userStore.mobile} onChange={userStore.setMobile}/>
-            <Radio label={'Gender'} options={Object.keys(Gender)} value={userStore.gender}
+            <Input label={'Name'}
+                   value={userStore.username}
+                   onChange={userStore.setUsername}/>
+            <Input label={'Email'}
+                   value={userStore.email}
+                   onChange={userStore.setEmail}/>
+            <Input label={'Mobile'}
+                   value={userStore.mobile}
+                   onChange={userStore.setMobile}/>
+            <Radio label={'Gender'}
+                   options={Object.keys(Gender)}
+                   value={userStore.gender}
                    onChange={userStore.setGender}/>
             <Select label={'Register Source'}
                     options={Object.keys(RegisterSource)}
