@@ -1,5 +1,5 @@
 import React from 'react'
-import {CLIENT_ID, OAUTH_SERVER, REDIRECT_URI} from "../../../common/config";
+import {CLIENT_ID, OAUTH_SERVER, REDIRECT_URI} from "../../../config";
 
 function Login() {
 

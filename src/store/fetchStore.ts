@@ -1,4 +1,4 @@
-import {CLIENT_ID, CLIENT_SECRET, REDIRECT_URI} from "../common/config";
+import {CLIENT_ID, CLIENT_SECRET, REDIRECT_URI} from "../config";
 import {TokenParam} from "../types";
 import {makeAutoObservable} from "mobx";
 
