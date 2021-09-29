@@ -1,6 +1,6 @@
 import React, {useContext, useEffect} from "react";
 import {observer} from "mobx-react";
-import StoreContext from "../../../../context";
+import StoreContext from "../../../../common/context";
 import {useHistory} from "react-router";
 import styles from './style.module.scss'
 import {Link} from "react-router-dom";

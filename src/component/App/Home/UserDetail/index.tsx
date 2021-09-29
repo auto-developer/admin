@@ -1,6 +1,6 @@
 import React, {FormEvent, useContext, useEffect} from "react";
 import {observer} from "mobx-react";
-import StoreContext from "../../../../context";
+import StoreContext from "../../../../common/context";
 import {useHistory, useParams} from "react-router";
 import styles from './style.module.scss'
 import Input from "../../../common/Input";

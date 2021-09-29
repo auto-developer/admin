@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from "react";
-import StoreContext from "../../../context";
+import StoreContext from "../../../common/context";
 import {useHistory} from "react-router";
 import fetchStore from "../../../store/fetchStore";
 

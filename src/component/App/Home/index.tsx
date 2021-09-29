@@ -2,7 +2,7 @@ import React, {useContext, useEffect} from 'react'
 import {Route, Switch, useHistory} from "react-router-dom";
 import UserList from "./UserList";
 import Dashboard from "./Dashboard";
-import StoreContext from "../../../context";
+import StoreContext from "../../../common/context";
 import ClientList from "./ClientList";
 import styles from './styles.module.scss'
 import ClientDetail from "./ClientDetail";

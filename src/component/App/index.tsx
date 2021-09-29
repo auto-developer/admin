@@ -4,7 +4,7 @@ import {BrowserRouter as Router} from "react-router-dom";
 import Login from "./Login";
 import Home from "./Home";
 import AuthCallBack from "./AuthCallback";
-import StoreContext from "../../context";
+import StoreContext from "../../common/context";
 import {observer} from "mobx-react";
 import Loading from "../common/Loading";
 
