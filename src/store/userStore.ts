@@ -13,7 +13,6 @@ class UserStore implements Omit<User, '_id'> {
     gender = Gender.male;
     registerSource: RegisterSource = RegisterSource.username;
 
-
     constructor() {
         makeAutoObservable(this);
     }
@@ -51,6 +50,7 @@ class UserStore implements Omit<User, '_id'> {
     async fetchUser(userId: string) {
         const user = await fetchStore.getResource(`/api/users/${userId}`)
         this.setUsername(user.username)
+        this.setNickname(user.nickname)
         this.setAvatar(user.avatar)
         this.setGender(user.gender)
         this.setEmail(user.email)
@@ -65,6 +65,7 @@ class UserStore implements Omit<User, '_id'> {
             avatar: this.avatar,
             gender: this.gender,
             username: this.username,
+            nickname: this.nickname,
             registerSource: this.registerSource,
         }
         const user = await fetchStore.postResource('/api/users', params)
