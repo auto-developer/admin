@@ -9,6 +9,8 @@ import ClientDetail from "./ClientDetail";
 import NavMenu from "./NavMenu";
 import UserAdd from "./UserAdd";
 import UserDetail from "./UserDetail";
+import Avatar from "../../common/Avatar";
+import {observer} from "mobx-react";
 
 function Home() {
     const {mineStore} = useContext(StoreContext)
@@ -16,8 +18,8 @@ function Home() {
     useEffect(() => {
         if (!mineStore.username) {
             mineStore.fetchMine()
-                .then(() => {
-
+                .then((user) => {
+                    console.log(user)
                 })
                 .catch(() => {
                     history.push('/login')
@@ -28,6 +30,10 @@ function Home() {
     return <div className={styles.home}>
         <header>
             <h1>Home</h1>
+            <div>
+                {mineStore.nickname}
+                <Avatar avatar={mineStore.avatar}/>
+            </div>
         </header>
         <section>
             <aside><NavMenu/></aside>
@@ -45,4 +51,4 @@ function Home() {
     </div>
 }
 
-export default Home
+export default observer(Home)

@@ -2,14 +2,13 @@ import React from 'react'
 import style from './style.module.scss'
 
 export interface AvatarProps {
-    img: string;
-    href: string;
+    avatar: string;
 }
 
 function Avatar(props: AvatarProps) {
-    return <a className={style.Avatar} href={props.href}>
-        <img src={props.img} alt=""/>
-    </a>
+    return <div className={style.Avatar}>
+        <img src={props.avatar} alt=""/>
+    </div>
 }
 
 export default Avatar
