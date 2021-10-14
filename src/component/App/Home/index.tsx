@@ -9,8 +9,8 @@ import ClientDetail from "./ClientDetail";
 import NavMenu from "./NavMenu";
 import UserAdd from "./UserAdd";
 import UserDetail from "./UserDetail";
-import Avatar from "../../common/Avatar";
 import {observer} from "mobx-react";
+import AppHeader from "./AppHeader";
 
 function Home() {
     const {mineStore} = useContext(StoreContext)
@@ -28,13 +28,7 @@ function Home() {
     }, [])
 
     return <div className={styles.home}>
-        <header>
-            <h1>Home</h1>
-            <div>
-                {mineStore.nickname}
-                <Avatar avatar={mineStore.avatar}/>
-            </div>
-        </header>
+        <AppHeader/>
         <section>
             <aside><NavMenu/></aside>
             <main>

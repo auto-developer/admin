@@ -1,0 +1,44 @@
+.AppHeader {
+  background-color: #24292f;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  color: #ffffff;
+  position: relative;
+  padding: 0 30px 0 20px;
+
+  div {
+
+    span {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    img {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0;
+      height: 24px;
+      aspect-ratio: auto 48 / 48;
+      width: 24px;
+      line-height: 1;
+      padding: 5px;
+    }
+
+    &:after {
+      display: inline-block;
+      width: 0;
+      height: 0;
+      vertical-align: middle;
+      content: "";
+      border-style: solid;
+      border-width: 4px 4px 0;
+      border-right-color: transparent;
+      border-bottom-color: transparent;
+      border-left-color: transparent;
+    }
+  }
+
+}
