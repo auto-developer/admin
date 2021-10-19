@@ -146,7 +146,7 @@ class FetchStore {
     }
 
     private async fetchToken(params: TokenParam) {
-        const response = await fetch('/token', {
+        const response = await fetch('/oauth/token', {
             method: 'POST',
             body: new URLSearchParams(params)
         })
