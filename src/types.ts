@@ -38,14 +38,14 @@ export type Pagination = {
 
 type TokenRequestParam = {
     client_id: string;
-    client_secret: string;
+    client_secret?: string;
     grant_type: string;
     redirect_uri: string;
     code: string;
 }
 type TokenRefreshParam = {
     client_id: string;
-    client_secret: string;
+    client_secret?: string;
     grant_type: string;
     refresh_token: string;
 }

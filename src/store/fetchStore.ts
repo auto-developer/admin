@@ -127,7 +127,6 @@ class FetchStore {
         if (!code) throw Error('code is required.')
         const params = {
             'client_id': CLIENT_ID,
-            'client_secret': CLIENT_SECRET,
             'redirect_uri': REDIRECT_URI,
             'grant_type': 'authorization_code',
             'code': code,
@@ -138,7 +137,6 @@ class FetchStore {
     private async postRefreshToken() {
         const params = {
             'client_id': CLIENT_ID,
-            'client_secret': CLIENT_SECRET,
             'grant_type': 'refresh_token',
             'refresh_token': FetchStore.refreshToken,
         }
@@ -146,7 +144,7 @@ class FetchStore {
     }
 
     private async fetchToken(params: TokenParam) {
-        const response = await fetch('/oauth/token', {
+        const response = await fetch('/admin/token', {
             method: 'POST',
             body: new URLSearchParams(params)
         })
