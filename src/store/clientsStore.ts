@@ -22,7 +22,7 @@ import fetchStore from "./fetchStore";
     }
 
     async fetchClients() {
-        const {data: clients, pagination} = await fetchStore.getResource('/api/clients')
+        const {data: clients, pagination} = await fetchStore.getResource('/admin/clients')
         this.setClients(clients)
         this.setPagination(pagination)
     }

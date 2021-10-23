@@ -40,7 +40,7 @@ class ClientStore {
     }
 
     async fetchClient(clientId: string) {
-        const client: Client = await fetchStore.getResource(`/api/clients/${clientId}`)
+        const client: Client = await fetchStore.getResource(`/admin/clients/${clientId}`)
         this.setId(client._id)
         this.setDescription(client.description)
         this.setGrants(client.grants)

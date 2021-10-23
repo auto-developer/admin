@@ -48,7 +48,7 @@ class UserStore implements Omit<User, '_id'> {
     }
 
     async fetchUser(userId: string) {
-        const user = await fetchStore.getResource(`/api/users/${userId}`)
+        const user = await fetchStore.getResource(`/admin/users/${userId}`)
         this.setUsername(user.username)
         this.setNickname(user.nickname)
         this.setAvatar(user.avatar)
@@ -68,7 +68,7 @@ class UserStore implements Omit<User, '_id'> {
             nickname: this.nickname,
             registerSource: this.registerSource,
         }
-        const user = await fetchStore.postResource('/api/users', params)
+        const user = await fetchStore.postResource('/admin/users', params)
         return user
     }
 }

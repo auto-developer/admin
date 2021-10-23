@@ -22,7 +22,7 @@ class UsersStore {
     }
 
     async fetchUsers() {
-        const {data: users, pagination} = await fetchStore.getResource('/api/users')
+        const {data: users, pagination} = await fetchStore.getResource('/admin/users')
         this.setUsers(users)
         this.setPagination(pagination)
         return users

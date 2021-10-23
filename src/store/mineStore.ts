@@ -22,7 +22,7 @@ class MineStore {
     }
 
     async fetchMine() {
-        const user = await fetchStore.getResource('/api/mine')
+        const user = await fetchStore.getResource('/admin/mine')
         console.log('user')
         console.log(user.nickname)
         this.setUsername(user.username)
