@@ -62,6 +62,14 @@ class FetchStore {
         localStorage.setItem('token_type', String(expireIn))
     }
 
+    clearToken() {
+        FetchStore.accessToken = ''
+        FetchStore.refreshToken = ''
+        FetchStore.scope = ''
+        FetchStore.expiresIn = NaN
+        FetchStore.tokenType = ''
+    }
+
     setFetchCount(count: number) {
         this.fetchCount = count
     }
